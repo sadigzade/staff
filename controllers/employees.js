@@ -41,7 +41,29 @@ const add = async (req, res) => {
   }
 };
 
+/**
+ * @route POST /api/user/employees/remove/:id
+ * @desc Удаление сотрудника
+ * @access Private
+ */
+const remove = async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    await prisma.employee.delete({
+      where: {
+        id,
+      },
+    });
+
+    res.status(204).json("OK");
+  } catch (error) {
+    res.status(500).json({ message: "Не удалось удалить сотрудника" });
+  }
+};
+
 module.exports = {
   all,
   add,
+  remove,
 };
