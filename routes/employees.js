@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { auth } = require("../middleware/auth");
-const { all, remove, add } = require("../controllers/employees");
+const { all, add, remove, edit } = require("../controllers/employees");
 
 /* /api/employees */
 router.get("/", auth, all);
@@ -12,6 +12,6 @@ router.post("/add", auth, add);
 /* /api/employees/remove/:id */
 router.post("/remove/:id", auth, remove);
 /* /api/employees/edit/:id */
-router.put("/edit/:id", auth, () => console.log("edit employee"));
+router.put("/edit/:id", auth, edit);
 
 module.exports = router;

@@ -62,8 +62,31 @@ const remove = async (req, res) => {
   }
 };
 
+/**
+ * @route PUT /api/user/employees/edit/:id
+ * @desc Редактирование сотрудника
+ * @access Private
+ */
+const edit = async (req, res) => {
+  const { body } = req;
+
+  try {
+    await prisma.employee.update({
+      where: {
+        id: body.id,
+      },
+      data: body,
+    });
+
+    res.status(204).json("OK");
+  } catch (error) {
+    res.status(500).json({ message: "Не удалось отредактировать сотрудника" });
+  }
+};
+
 module.exports = {
   all,
   add,
   remove,
+  edit,
 };
