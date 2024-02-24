@@ -84,8 +84,30 @@ const edit = async (req, res) => {
   }
 };
 
+/**
+ * @route GET /api/user/employees/:id
+ * @desc Получение сотрудника
+ * @access Private
+ */
+const employee = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const employee = await prisma.employee.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    res.status(200).json(employee);
+  } catch (error) {
+    res.status(500).json({ message: "Не удалось получить сотрудника" });
+  }
+};
+
 module.exports = {
   all,
+  employee,
   add,
   remove,
   edit,
